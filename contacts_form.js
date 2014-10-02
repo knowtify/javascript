@@ -14,9 +14,13 @@ if(window.knowtifyJS){
 	if(!k.subscribe_button_position){ k.subscribe_button_position = "bottom_right"; }
 	if(!k.subscribe_button_color){ k.subscribe_button_color = "#60b6e2"; }
 	if(!k.subscribe_button_font_color){ k.subscribe_button_font_color = "#fff"; }
-	if(!k.subscribe_button_font_family){ k.subscribe_button_font_family = "helvetica neue"; }
+	if(!k.subscribe_button_font){ k.subscribe_button_font = "helvetica neue"; }
 	if(!k.subscribe_button_font_weight){ k.subscribe_button_font_weight = "200"; }
 	if(!k.subscribe_button_letter_spacing){ k.subscribe_button_letter_spacing = "1px"; }
+	if(!k.popup_font_color){ k.popup_font_color = "#444"; }
+	if(!k.popup_font){ k.popup_font = "helvetica neue"; }
+	if(!k.popup_font_weight){ k.popup_font_weight = "500"; }
+	if(!k.popup_letter_spacing){ k.popup_letter_spacing = "1px"; }
 
 
 	$('head').append( $('<link rel="stylesheet" type="text/css" />').attr('href', 'http://js.knowtify.io/contacts_form.css') );
@@ -27,7 +31,7 @@ if(window.knowtifyJS){
 	button.css({
 		background:k.subscribe_button_color,
 		color:k.subscribe_button_font_color,
-		'font-family':k.subscribe_button_font_family,
+		'font-family':k.subscribe_button_font,
 		'font-weight':k.subscribe_button_font_weight,
 		'letter-spacing':k.subscribe_button_letter_spacing
 	});
@@ -65,6 +69,41 @@ if(window.knowtifyJS){
 	},1500);
 	button.on('mouseover',function(){
 		$(this).find('.mail_icon').attr('class','mail_icon knowtifyjs_animation');
+	});
+
+	var signup_screen = $('<div id="knowtifyjs_screen"></div>');
+	var signup_box = $('<div id="knowtifyjs_signup">\
+			<h1>Signup for our weekly digest</h1>\
+		</div>');
+	signup_box.css({
+		color:k.popup_font_color,
+		'font-family':k.popup_font,
+		'font-weight':k.popup_font_weight,
+		'letter-spacing':k.popup_letter_spacing
+	});
+
+
+	button.on('click',function(){
+		var window_height = $(window).height();
+		if(window_height > 500){
+			signup_box.css({
+				opacity:0,
+				height:(window_height-200),
+				'margin-top':-((window_height-100)/2)
+			});
+		}else{
+			signup_box.css({
+				opacity:0,
+				height:(window_height-100),
+				'margin-top':0,
+				top:0
+			});
+		}
+
+		$('body').append(signup_screen);
+		$('body').append(signup_box);
+		signup_box.addClass('knowtifyjs_bounce');
+		signup_box.css({opacity:1});
 	});
 }
 })();
