@@ -1,7 +1,36 @@
 #knowtifyjs_button {
 	position:fixed;
-	bottom:0;
-	left:0;
-	background:#000;
+	background:#000 url('http://js.knowtify.io/img/mail.svg') no-repeat;
 	color:#fff;
+}
+
+#knowtifyjs_button.bottom_right {
+	bottom:0;
+	right:50px;
+}
+
+#knowtifyjs_button.bottom_left {
+	bottom:0;
+	left:50px;
+}
+
+#knowtifyjs_button.top_right {
+	top:0;
+	right:50px;
+}
+
+#knowtifyjs_button.top_left {
+	top:0;
+	left:50px;
+}
+
+#knowtify_button .mail_icon {
+	display:inline-block;
+	float:left;
+	margin-right:5px;
+	width:30px;
+}
+
+#knowtifyjs_button .mail_icon path {
+	fill:#fff;
 }
