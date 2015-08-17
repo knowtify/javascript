@@ -161,6 +161,35 @@
                 }
 
             },
+            loadJSCommand: function (data) {
+                console.log("loading JS");
+
+                if(data[1].url) {
+                    KNOWTIFY.loadScript(data[1].url, function () {
+                     //   console.log("Loaded JS");
+                    });
+                }
+                else {
+                    console.log("Error: No url for JS");
+                }
+
+            },
+            loadCSSCommand: function (data) {
+                console.log("loading CSS");
+
+                if(data[1].url) {
+                    var head = document.getElementsByTagName('head')[0];
+                    var s = document.createElement('link');
+                    s.setAttribute('type', 'text/css');
+                    s.setAttribute('rel', 'stylesheet');
+                    s.href = data[1].url;
+                    head.appendChild(s);
+                }
+                else {
+                    console.log("Error: No url for CSS");
+                }
+
+            },
             apiCall: function (url, data, success_callback) {
 
 
@@ -233,8 +262,14 @@
                         case "update_contact":
                             KNOWTIFY.updateContactCommand(d);
                             break;
-                        case "inbox":
+                        case "load_inbox":
                             KNOWTIFY.inboxCommand(d);
+                            break;
+                        case "load_js":
+                            KNOWTIFY.loadJSCommand(d);
+                            break;
+                        case "load_css":
+                            KNOWTIFY.loadCSSCommand(d);
                             break;
                         case "event":
                             KNOWTIFY.eventCommand(d);
