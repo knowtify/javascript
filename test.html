@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>JS test</title>
+</head>
+<body>
+	<h1>This is a page to test Knowtify.io 2</h1>
+
+	<a id="clicker" href="#" data-categories="one,two">Click me!</a><br />
+	<button id="click2" data-categories="four,five">try me!</button>
+
+	<script>
+		window.knowtifyJS = {
+			public_token: "5b88d5b81d9cee37d2cdac49b0652820",
+			subscribe_button_text: "Subscribe to our newsletter",
+			subscribe_button_position: "bottom_left",
+			subscribe_button_font_color: "#fff",
+			subscribe_button_color: "#60b6e2",
+			subscribe_button_font: "helvetica neue",
+			subscribe_button_font_size: "15px",
+			subscribe_button_font_weight: 200,
+			popup_font: "helvetica neue",
+			popup_font_color: "#444",
+			popup_font_weight: 500,
+			popup_letter_spacing: "1px",
+			popup_category_display: "hide",
+			popup_timer: 3,
+			target_elements: "#clicker,#click2",
+			thank_you_message: "Thanks for subscribing!",
+			categories: "SaaS,User Engagement,Code,Design",
+			data: [
+				{ key:'lang', value:'en' },
+				{ key:'cows', value:200 }
+			]
+		}
+	</script>
+
+	<script type="text/javascript">
+	function loadKnowtify() {
+		var element = document.createElement("script");
+		element.src = "http://js.knowtify.io/contacts_form.js";
+		document.body.appendChild(element);
+	}
+	if (window.addEventListener)
+		window.addEventListener("load", loadKnowtify, false);
+	else if (window.attachEvent)
+		window.attachEvent("onload", loadKnowtify);
+	else window.onload = loadKnowtify;
+	</script>
+</body>
+</html>

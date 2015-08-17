@@ -1,0 +1,259 @@
+#inbox_message_count.hide {
+	display:none;
+}
+#inbox_message_count.show {
+	display:inline-block;
+	background:#fdd630;
+	color:#fff;
+	position:absolute;
+	top:-5px;
+	right:-10px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:3px;
+	min-width:15px;
+	text-align:center;
+}
+#alert_button {
+	position:relative;
+}
+#alert_button:focus {
+	outline:none;
+}
+#inbox_tooltip.show {
+	display:block !important;
+}
+#inbox_tooltip.hide {
+	display:none !important;
+}
+#inbox_tooltip {
+	position:absolute;
+	position:fixed;
+	font-family:helvetica,arial;
+	width:450px;
+	background:#fff;
+	overflow:hidden;
+	-webkit-box-shadow:0 0 15px rgba(0,0,0,.25);
+	-moz-box-shadow:0 0 15px rgba(0,0,0,.25);
+	box-shadow:0 0 15px rgba(0,0,0,.25);
+	z-index:1000;
+}
+#inbox_messages {
+	background:#f9f9f9;
+	font-family:helvetica,arial;
+	padding:25px;
+}
+
+#inbox_messages li {
+	background:#fff;
+	padding:15px;
+	height:75px;
+	margin-bottom:10px;
+	position:relative;
+	list-style:none;
+	text-align:left;
+}
+
+#inbox_messages li:hover {
+	cursor:pointer;
+}
+
+#inbox_messages li a.delete {
+	position:absolute;
+	right:10px;
+	top:5px;
+	display:none;
+	color:#bbb;
+	text-decoration:none;
+}
+
+#inbox_messages li:hover a.delete {
+	display:block;
+}
+
+#inbox_messages li a.delete:hover {
+	color:#999;
+}
+
+#inbox_messages li img {
+	width:75px;
+	height:75px;
+	float:left;
+	margin-right:15px;
+}
+
+#inbox_messages li p {
+	margin:0 0 10px 0;
+	font-size:14px;
+	line-height:1.2;
+}
+
+#inbox_messages li p.timestamp {
+	font-size:11px;
+	color:#bbb;
+}
+
+#inbox_messages li .heading {
+	font-weight:bold;
+}
+
+#inbox_messages li.read {
+	opacity:.5;
+}
+
+#inbox_messages,
+#inbox_content {
+	position:absolute;
+	top:50px;
+	width:400px;
+	padding:25px;
+	overflow: hidden;
+  	overflow-y: auto;
+	-webkit-transition:all 150ms linear;
+	-moz-transition:all 150ms linear;
+	transition:all 150ms linear;
+}
+
+#inbox_messages.hide{
+	left:-450px;
+}
+#inbox_content.hide {
+	left:450px;
+}
+
+#inbox_messages.show,
+#inbox_content.show {
+	left:0;
+}
+
+#inbox_header {
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:100;
+	background:#fff;
+	padding:0 25px;
+	width:400px;
+	height:50px;
+}
+
+#inbox_header_text {
+	line-height:50px;
+	font-weight:bold;
+	font-size:16px;
+}
+
+#inbox_mark_read {
+	position:absolute;
+	top:0;
+	right:25px;
+	line-height:50px;
+	color:#bbb;
+	font-size:13px;
+	text-decoration:underline;
+}
+
+#inbox_mark_read:hover {
+	color:#aaa;
+	text-decoration:none;
+}
+
+#inbox_footer {
+	position:absolute;
+	bottom:0;
+	left:0;
+	z-index:100;
+	background:#fff;
+	padding:0 25px;
+	width:400px;
+	height:50px;
+	text-align:center;
+}
+
+#inbox_footer a {
+	line-height:50px;
+	font-size:13px;
+	color:#bbb;
+	text-decoration:underline;
+}
+
+#inbox_footer a:hover {
+	color:#aaa;
+	text-decoration:none;
+}
+
+#content_back a {
+	color:#bbb;
+	font-size:13px;
+	text-decoration:underline;
+}
+
+#content_back:hover {
+	color:#aaa;
+	text-decoration:none;
+}
+
+#inbox_content {
+	text-align: center;
+	color: #343434;
+	background: #fff;
+}
+
+
+#inbox_content img {
+	max-width: 100%;
+}
+
+#inbox_content h1 {
+	font-size: 32px;
+	margin-top:20px;
+}
+
+#inbox_content h2 {
+	font-size: 28px;
+	margin-top:20px;
+}
+
+#inbox_content h3 {
+	font-size: 24px;
+	margin-top:20px;
+}
+
+#inbox_content h4 {
+	font-size: 20px;
+	margin-top:20px;
+}
+
+#inbox_content p {
+	font-size: 16px;
+	color: #616161;
+	font-weight: 300;
+	margin: 15px 0;
+}
+
+
+#inbox_content ul, body #inbox_content ol, body #inbox_content li {
+	text-align: left;
+}
+
+#content_back {
+	text-align: left;
+}
+
+/* to create a Button in the additional content box, you can use this class */
+
+#inbox_content a .button {
+	border-radius: 5px;
+	padding: 10px;
+	background: #2EA9DC;
+	text-decoration: none;
+	color: #fff;
+}
+
+#inbox_message_count,
+#inbox_messages .message,
+#inbox_header,
+#inbox_footer,
+#inbox_messages {
+  box-sizing: content-box;
+}

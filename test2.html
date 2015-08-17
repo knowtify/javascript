@@ -1,0 +1,15 @@
+<button id="button">Press to send to Knowtify</button>
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+$().ready(function(){
+    $("#button").click(function(){
+        knowtifyApi('add_contact',{
+            "public_token":"825600404ddd86a57886a61c20bebb8a",
+            "email":"bill@test.com",
+            "name":"Bill"
+        });
+    });
+});
+</script>
+<script src="http://js.knowtify.io/api.js" type="text/javascript" defer></script>

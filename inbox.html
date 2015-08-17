@@ -1,0 +1,100 @@
+<html>
+<head>
+	<title>JS test</title>
+
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			font-family:helvetica neue,arial;
+		}
+		#alert_button {
+			position:relative;
+			float:right;
+			top:25px;
+			background:transparent;
+			color:#444;
+			border:2px solid #444;
+			padding:6px;
+			font-size:16px;
+		}
+
+		#alert_button:hover {
+			cursor:pointer;
+		}
+
+		#nav {
+			padding:0 85px;
+			height:85px;
+			line-height:75px;
+			background:#f2f2f2;
+		}
+
+		#user_submit {
+			padding:35px 75px;
+		}
+
+		#user_submit input {
+			font-size:18px;
+			border:1px solid #ccc;
+			padding:10px;
+			width:300px;
+			margin-bottom:10px;
+		}
+
+		#user_submit button {
+			background:#4a90e2;
+			color:#fff;
+			border:none;
+			width:300px;
+			font-size:18px;
+			padding:15px 0;
+		}
+
+		#user_submit button:hover {
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="nav">
+		<button id="alert_button">Messages</button>
+		<h1>Knowtify Inbox testing...</h1>
+	</div>
+	<form id="user_submit">
+		<div>
+			<input id="public_token" placeholder="Public token" />
+		</div>
+		<div>
+			<input id="email" placeholder="Email" />
+		</div>
+		<div>
+			<input id="contact_id" placeholder="Contact ID" />
+		</div>
+		<button type="submit" id="submit_form">Submit</button>
+	</div>
+
+	<script>
+		var _submit_form = document.getElementById('user_submit');
+		_submit_form.addEventListener("submit", submit_form);
+
+		function submit_form(e){
+			var event = e || window.event;
+			event.preventDefault();
+
+			window.knowtifyInbox = {
+				public_token: document.getElementById("public_token").value,
+				contact_id: document.getElementById("contact_id").value,
+				email: document.getElementById("email").value,
+				alert_button_id: "alert_button"
+			};
+
+			(function() {
+				var s = document.createElement('script');s.type = 'text/javascript';s.async = true;s.src = 'inbox.js';var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);
+			})();
+
+			_submit_form.innerHTML = "<h1>Connected!</h1>"
+		}
+    </script>
+</body>
+</html>

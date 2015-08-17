@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title>JS test</title>
+
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			font-family:helvetica neue,arial;
+			background:url('https://s3.amazonaws.com/knowtify_web/_inbox/acme_site.png') no-repeat;
+			background-size:cover;
+		}
+		#alert_button {
+			position:relative;
+			top: 20px;
+			right: 63px;
+			height: 50px;
+			width: 50px;
+			z-index: 100;
+			float: right;
+		}
+
+		#alert_button:hover {
+			cursor:pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="alert_button"></div>
+
+	<script>
+		window.knowtifyInbox = {
+			public_token: '5745ea1f738e5a17ca610c8905902448',
+			email: 'dane@knowtify.io',
+			alert_button_id: "alert_button"
+		};
+
+		(function() {
+			var s = document.createElement('script');s.type = 'text/javascript';s.async = true;s.src = 'inbox.js';var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);
+		})();
+    </script>
+</body>
+</html>

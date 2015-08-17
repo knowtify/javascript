@@ -1,0 +1,24 @@
+<html>
+<head>
+	<title>Knowtify Javascript API</title>
+</head>
+<body>
+	<h1>This is a page to test Knowtify.io</h1>
+
+
+<script src="api.js" type="text/javascript"></script>
+<script>
+	knowtifyApi('update_contact',{
+		"public_token":"xxx",
+		"email":"dane@knowtify.io",
+		"name":"abc123",
+		"event":"weekly_update",
+		"data":{
+			"id":123,
+			"cows":570,
+			"chickens":450
+		}
+	});
+</script>
+</body>
+</html>
