@@ -1,0 +1,235 @@
+/*
+ var _knowtify = _knowtify || [];
+ _knowtify.public_token = "67c681aed06e3487bd20d4909d28af12";
+ _knowtify.development = true;
+
+ function _knowtifyLoader(f) {
+
+ var j = document.createElement('script');
+ var p = document.getElementsByTagName('script')[0];
+ j.type = 'text/javascript';
+ j.async = true;
+ j.src = f;
+ p.parentNode.insertBefore(j, p);
+ }
+
+ // Goals
+ // handle ssl/non ssl load
+ // Handle no _knowtify set
+ // handle _knowtify set anywhere
+ //handle processing _knowitfy
+ //Handle using local_storage
+
+
+ _knowtifyLoader("//js.knowtify.io/knowtify.js");
+
+ _knowtify.push(['add_contact', {"email": "joe@a.ol.com", contact_id: 123, name: "Joe", followers: 12}]);
+ _knowtify.push(['update_contact', {"contact_id": 123, "email": "joe@aol.com", name: "Joe", followers: 12}]);
+ _knowtify.push(['event', 'low_credits',{ "contact_id": 123, credits: 10}]);
+ _knowtify.push(['inbox', 'inbox-btn', {"email": "joe@a.ol.com", contact_id: 123}]);
+
+ */
+(function (window, document, undefined) {
+
+
+        var jQuery, $; // Localize jQuery variables
+
+
+        if (typeof(window._knowtify) == 'undefined') {
+            window._knowtify = [];
+        }
+        var KNOWTIFY = {
+            fullyLoaded: function () {
+                var d = document;
+                if (d.readyState && d.readyState == "complete"
+                    || d.readyState == "loaded" && d.addEventListener) {
+                    return (true);
+                }
+            },
+            loadScript: function (url, callback) {
+                var scriptTag = document.createElement('script');
+                scriptTag.setAttribute("type", "text/javascript");
+                scriptTag.setAttribute("src", url);
+                if (typeof callback !== "undefined") {
+                    if (scriptTag.readyState) {
+                        scriptTag.onreadystatechange = function () {
+                            if (this.readyState === 'complete' || this.readyState === 'loaded') {
+                                callback();
+                            }
+                        };
+                    } else {
+                        scriptTag.onload = callback;
+                    }
+                }
+                (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(scriptTag);
+            },
+            loadCSS: function (url) {
+                var head = document.getElementsByTagName('head')[0];
+                var s = document.createElement('link');
+                s.setAttribute('type', 'text/css');
+                s.setAttribute('rel', 'stylesheet');
+                s.href = url;
+                head.appendChild(s);
+            },
+            attachToReadyStateChange: function () {
+
+                if (document.attachEvent) {
+                    document.attachEvent("onreadystatechange", KNOWTIFY.process);
+                }
+                else {
+                    document.addEventListener("readystatechange", KNOWTIFY.process);
+                }
+            },
+            attachToLoad: function () {
+
+                if (document.attachEvent) {
+                    document.attachEvent("onload", KNOWTIFY.process);
+                }
+                else {
+                    document.addEventListener("loaded", KNOWTIFY.process);
+                    document.addEventListener("DOMContentLoaded", KNOWTIFY.process);
+                }
+            },
+            addContactCommand: function (data) {
+                console.log("add_contact");
+                if (data[1].email) {
+                    if (!data[1].name) {
+                        data[1].name = "";
+                    }
+                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
+                }
+                else {
+                    console.log("Error: No email defined for add_contact", data[1]);
+                }
+
+            },
+            updateContactCommand: function (data) {
+                console.log("update_contact");
+
+                if (data[1].id) {
+
+                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
+                }
+                else {
+                    console.log("Error: No contact_id defined for update_contact");
+                }
+            },
+            eventCommand: function (data) {
+                console.log("event");
+                if (data[2].id) {
+                    data[2].event = data[1];
+                    var data = data[2];
+                    delete data.event;
+                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data);
+                }
+                else {
+                    console.log("Error: No id defined for event", data[1]);
+                }
+
+            },
+            inboxCommand: function (data) {
+                console.log("inbox");
+
+                if (data[2].email) {
+
+                    window.knowtifyInbox = {
+                        public_token: window._knowtify.public_token,
+                        email: data[2].email,
+                        alert_button_id: data[1]
+                    };
+                    //Load the library
+
+                    KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
+                     //   console.log("Loaded inbox");
+                    });
+
+                }
+                else {
+                    console.log("Error: No email defined for inbox");
+                }
+
+            },
+            apiCall: function (url, data, success_callback) {
+
+
+                if (_knowtify.public_token) {
+
+                    $.ajax({
+                        type: 'POST',
+                        dataType: "json",
+                        crossDomain: true,
+                        processData: false,
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            token: _knowtify.public_token,
+                            data: data
+                        }),
+                        url: url,
+                        success: function (result) {
+                            console.log(result);
+                            if (success_callback) {
+                                success_callback(result);
+                            }
+                        }
+                    });
+                } else {
+                    console.log("Error: No public token set on _knowtify");
+                }
+
+
+            },
+            hasLocalStorage: function () {
+                try {
+                    return 'localStorage' in window && window['localStorage'] !== null;
+                } catch (e) {
+                    return false;
+                }
+            },
+            process: function () {
+                console.log("processing the queue");
+                var d;
+                while (_knowtify.length > 0) {
+
+                    d = jQuery.extend({}, _knowtify.shift());
+
+                    switch (d[0]) {
+                        case "add_contact":
+                            KNOWTIFY.addContactCommand(d);
+                            break;
+                        case "update_contact":
+                            KNOWTIFY.updateContactCommand(d);
+                            break;
+                        case "inbox":
+                            KNOWTIFY.inboxCommand(d);
+                            break;
+                        case "event":
+                            KNOWTIFY.eventCommand(d);
+                            break;
+                        default:
+                            console.log(d[0], "Unknown Command");
+                    }
+                }
+
+            }
+
+            ,
+
+            init: function () {
+
+                KNOWTIFY.attachToReadyStateChange();
+                KNOWTIFY.attachToLoad();
+
+
+            }
+        };
+        KNOWTIFY.loadScript("http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js", function () {
+            $ = jQuery = window.jQuery.noConflict(true);
+            KNOWTIFY.init();
+        });
+
+    }
+    (window, document)
+)
+;
+
+
