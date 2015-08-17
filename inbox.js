@@ -109,6 +109,7 @@ function init_inbox(){
 	_alert_button_count = document.createElement('span');
 	_alert_button_count.id = "inbox_message_count";
 	_alert_button.appendChild(_alert_button_count);
+	_alert_button.style.position = "relative";
 
 	_notification_count = document.getElementById("inbox_notifications_count");
 

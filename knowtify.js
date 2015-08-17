@@ -100,13 +100,12 @@
             },
             addContactCommand: function (data) {
                 console.log("add_contact");
-                if (data[1].email) {
+                if(data[1].email) {
                     if (!data[1].name) {
                         data[1].name = "";
                     }
                     KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
-                }
-                else {
+                }else{
                     console.log("Error: No email defined for add_contact", data[1]);
                 }
 
@@ -124,7 +123,7 @@
             },
             eventCommand: function (data) {
                 console.log("event");
-                if (data[2].id) {
+                if(data[2].id) {
                     data[2].event = data[1];
                     var data = data[2];
                     delete data.event;
@@ -145,9 +144,10 @@
                         email: data[2].email,
                         alert_button_id: data[1]
                     };
+                    console.log(data[2].id);
                     if(data[2].id){
                         //backwards compatibility
-                        window.knowtifyInbox.contact_id = data[2].id;
+                        window.knowtifyInbox.contact_id = data[2].id+"";
                     }
                     //Load the library
 
@@ -218,7 +218,7 @@
                 }
             },
             process: function () {
-                console.log("processing the queue");
+                //console.log("processing the queue");
                 var d;
                 while (_knowtify.length > 0) {
 
