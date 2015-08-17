@@ -81,13 +81,20 @@
                 }
             },
             attachToLoad: function () {
-
                 if (document.attachEvent) {
                     document.attachEvent("onload", KNOWTIFY.process);
                 }
                 else {
                     document.addEventListener("loaded", KNOWTIFY.process);
                     document.addEventListener("DOMContentLoaded", KNOWTIFY.process);
+                }
+            },
+            attachToKnowtify: function(){
+                //This is needed to make API calls based on user behavior after the page loads.
+                if(Object.observe){
+                    Object.observe(_knowtify, KNOWTIFY.process);
+                }else{
+                    //need a fallback
                 }
             },
             addContactCommand: function (data) {
@@ -236,6 +243,7 @@
             init: function () {
                 KNOWTIFY.attachToReadyStateChange();
                 KNOWTIFY.attachToLoad();
+                KNOWTIFY.attachToKnowtify();
             },
             extend: function(){
                 for(var i=1; i<arguments.length; i++)
