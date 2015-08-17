@@ -94,7 +94,8 @@
                 if(Object.observe){
                     Object.observe(_knowtify, KNOWTIFY.process);
                 }else{
-                    //need a fallback
+                    //probably not a great solution but it's better than a while loop
+                    setInterval(KNOWTIFY.process,1000);
                 }
             },
             addContactCommand: function (data) {
