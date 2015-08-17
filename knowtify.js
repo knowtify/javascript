@@ -144,6 +144,10 @@
                         email: data[2].email,
                         alert_button_id: data[1]
                     };
+                    if(data[2].id){
+                        //backwards compatibility
+                        window.knowtifyInbox.contact_id = data[2].id;
+                    }
                     //Load the library
 
                     KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
