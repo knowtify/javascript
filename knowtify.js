@@ -32,7 +32,7 @@
 (function (window, document, undefined) {
 
 
-        var jQuery, $; // Localize jQuery variables
+        //var jQuery, $; // Localize jQuery variables
 
 
         if (typeof(window._knowtify) == 'undefined') {
@@ -153,7 +153,26 @@
 
 
                 if (_knowtify.public_token) {
+                    var params = {
+                        token: _knowtify.public_token,
+                        data: data
+                    }
+                    var xhr = new XMLHttpRequest();
 
+                    xhr.open('POST',encodeURI(url));
+                    xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
+                    xhr.onload = function() {
+                        if (xhr.status !== 200) {
+                            alert('Request failed.  Returned status of ' + xhr.status);
+                        }else{
+                            if (success_callback){
+                                success_callback(xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(params));
+
+                    /*
                     $.ajax({
                         type: 'POST',
                         dataType: "json",
@@ -172,6 +191,7 @@
                             }
                         }
                     });
+                    */
                 } else {
                     console.log("Error: No public token set on _knowtify");
                 }
@@ -190,7 +210,9 @@
                 var d;
                 while (_knowtify.length > 0) {
 
-                    d = jQuery.extend({}, _knowtify.shift());
+                    //d = jQuery.extend({}, _knowtify.shift());
+                    d = KNOWTIFY.extend({}, _knowtify.shift());
+                    console.log(d);
 
                     switch (d[0]) {
                         case "add_contact":
@@ -210,22 +232,28 @@
                     }
                 }
 
-            }
-
-            ,
-
+            },
             init: function () {
-
                 KNOWTIFY.attachToReadyStateChange();
                 KNOWTIFY.attachToLoad();
-
-
+            },
+            extend: function(){
+                for(var i=1; i<arguments.length; i++)
+                    for(var key in arguments[i])
+                        if(arguments[i].hasOwnProperty(key))
+                            arguments[0][key] = arguments[i][key];
+                return arguments[0];
             }
         };
+        
+        KNOWTIFY.init();
+        /*
         KNOWTIFY.loadScript("http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js", function () {
             $ = jQuery = window.jQuery.noConflict(true);
             KNOWTIFY.init();
         });
+        */
+        
 
     }
     (window, document)
