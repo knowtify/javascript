@@ -113,21 +113,17 @@
             updateContactCommand: function (data) {
                 console.log("update_contact");
 
-                if (data[1].id) {
-
+                if(data[1].id) {
                     KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
-                }
-                else {
-                    console.log("Error: No contact_id defined for update_contact");
+                }else{
+                    console.log("Error: No contact id defined for update_contact");
                 }
             },
             eventCommand: function (data) {
                 console.log("event");
                 if(data[2].id) {
                     data[2].event = data[1];
-                    var data = data[2];
-                    delete data.event;
-                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data);
+                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[2]);
                 }
                 else {
                     console.log("Error: No id defined for event", data[1]);
@@ -198,6 +194,11 @@
                         token: _knowtify.public_token,
                         data: data
                     }
+                    if(data.event){
+                        params.event = data.event;
+                        delete data.event;
+                    }
+
                     var xhr = new XMLHttpRequest();
 
                     xhr.open('POST',encodeURI(url));
