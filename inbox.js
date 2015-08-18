@@ -28,6 +28,32 @@ if(window.knowtifyInbox && supports_local_storage()){
 	_alert_button.addEventListener("click", show_hide_messages);
 	_messages.addEventListener("click", message_click);
 	_content.addEventListener("click", content_click);
+
+	if(Object.observe){
+		Object.observe(_knowtifyInbox, process);
+	}else{
+		setInterval(process,1000);
+	}
+	setTimeout(function(){
+		process();
+	},1000);
+}
+
+function process(){
+	//console.log('processing...');
+	var d;
+	while (_knowtifyInbox.length > 0) {
+	    d = extend({}, _knowtifyInbox.shift());
+
+	    switch (d[0]) {
+	        case "message":
+	            save_messages(JSON.stringify({messages:[d[1]]}));
+	            add_messages();
+	            break;
+	        default:
+	            console.log(d[0], "Unknown Command");
+	    }
+	}
 }
 
 function setup_websockets(){
@@ -149,8 +175,11 @@ function save_messages(data){
 	var msg = JSON.parse(data).messages || [];
 	for(var i=0;i<msg.length;i++){
 		var message = msg[i];
-		messages[message._id] = message;
-		messages[message._id].status = 'unread';
+		message._id = message._id || message.id || null;
+		if(!messages[message._id]){
+			messages[message._id] = message;
+			messages[message._id].status = 'unread';
+		}
 	}
 
 	var count = 0;
@@ -466,6 +495,14 @@ function add_contact(){
 		xhr.send(JSON.stringify(params));
 		localStorage.setItem('inbox_contact',true);
 	}
+}
+
+function extend(){
+	for(var i=1; i<arguments.length; i++)
+		for(var key in arguments[i])
+			if(arguments[i].hasOwnProperty(key))
+				arguments[0][key] = arguments[i][key];
+	return arguments[0];
 }
 
 function timeSince(timestamp) {

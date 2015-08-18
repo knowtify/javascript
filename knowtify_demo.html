@@ -5,6 +5,7 @@
     //Last Updated August 10, 2015
 
     var _knowtify = _knowtify || [];
+    var _knowtifyInbox = [];
     _knowtify.public_token = "5745ea1f738e5a17ca610c8905902448";
     _knowtify.development = true; //Not yet supported
 
@@ -20,7 +21,14 @@
     _knowtify.push(['load_inbox', 'inbox-btn', {email: "dane@knowtify.io", id: 123}]);
     //_knowtify.push(['load_js', {url: "js/test.js"}]);
     //_knowtify.push(['load_css', {url: "css/test.css"}]);
-
+    _knowtifyInbox.push(['message', {
+        id: "1234569",
+        heading: "Happy 4",
+        image: "https://s3.amazonaws.com/knowtify_web/_img/inbox_profile.png",
+        description: "Happy 3...",
+        content: "<p>Happy!!!!</p>",
+        created_at: "2015-08-18T01:01:38.640Z"
+    }])
 
 </script>
 
