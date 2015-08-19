@@ -1,5 +1,8 @@
 (function(){
 if(window.knowtifyInbox && supports_local_storage()){
+	if (typeof(window._knowtifyInbox) == 'undefined') {
+        window._knowtifyInbox = [];
+    }
 
 	//Vars
 	var k = window.knowtifyInbox,
@@ -418,7 +421,9 @@ function delete_message(id){
 
 function url_redirect(id){
 	var message = messages[id];
-	window.location.href = message.url;
+	//window.location.href = message.url;
+	var win = window.open(message.url, '_blank');
+  	win.focus();
 }
 
 function show_content(id){

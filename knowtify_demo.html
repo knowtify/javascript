@@ -2,32 +2,27 @@
 
 <button id="inbox-btn">Alert Button</button>
 <script>
-    //Last Updated August 10, 2015
-
     var _knowtify = _knowtify || [];
-    var _knowtifyInbox = [];
+    var _knowtifyInbox = _knowtifyInbox || [];
     _knowtify.public_token = "5745ea1f738e5a17ca610c8905902448";
-    _knowtify.development = true; //Not yet supported
-
+    var timestamp = new Date();
 
     (function(d,s,t,u){var j = d.createElement(s);var p = d.getElementsByTagName(s)[0];
-        j.type = t;j.async = true;j.src = u;p.parentNode.insertBefore(j, p);})(document,'script','text/javascript', 'knowtify.js');
-
-
+        j.type = t;j.async = true;j.src = u;p.parentNode.insertBefore(j, p);})(document,'script','text/javascript', 'http://js.knowtify.io/knowtify.js');
 
     //_knowtify.push(['add_contact', {email: "joe@knowtify.io", id: 123, name: "Joe", followers: 12}]);
     //_knowtify.push(['update_contact', {id: 123, "email": "joe@knowtify.io", name: "Joe", followers: 100}]);
     //_knowtify.push(['event', 'low_credits', {id: 123, credits: 25, email: "dane@knowtify.io"}]);
-    _knowtify.push(['load_inbox', 'inbox-btn', {email: "dane@knowtify.io", id: 123}]);
+    _knowtify.push(['load_inbox', 'inbox-btn', {email: "dane@knowtify.io", id: null}]);
     //_knowtify.push(['load_js', {url: "js/test.js"}]);
     //_knowtify.push(['load_css', {url: "css/test.css"}]);
     _knowtifyInbox.push(['message', {
-        id: "1234569",
+        id: "653245",
         heading: "Happy 4",
         image: "https://s3.amazonaws.com/knowtify_web/_img/inbox_profile.png",
         description: "Happy 3...",
         content: "<p>Happy!!!!</p>",
-        created_at: "2015-08-18T01:01:38.640Z"
+        created_at: timestamp
     }])
 
 </script>
