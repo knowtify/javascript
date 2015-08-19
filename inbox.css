@@ -56,7 +56,7 @@
 	box-shadow: 0 1px 1px 0 #E6E6E6;
 }
 
-#inbox_messages li:hover {
+body #inbox_messages li:hover {
 	cursor:pointer;
 	border-right: 3px solid #23A8DE;
 }
