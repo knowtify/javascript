@@ -52,10 +52,13 @@
 	position:relative;
 	list-style:none;
 	text-align:left;
+	border: 1px solid #e3e3e3;
+	box-shadow: 0 1px 1px 0 #E6E6E6;
 }
 
 #inbox_messages li:hover {
 	cursor:pointer;
+	border-right: 3px solid #23A8DE;
 }
 
 #inbox_messages li a.delete {
@@ -98,7 +101,9 @@
 }
 
 #inbox_messages li.read {
-	opacity:.5;
+	background: #F2F2F2;
+	opacity: .9;
+	border: 1px solid #ddd;
 }
 
 #inbox_messages,
@@ -135,6 +140,7 @@
 	padding:0 25px;
 	width:400px;
 	height:50px;
+	border-bottom: 1px solid #ddd;
 }
 
 #inbox_header_text {
@@ -168,6 +174,7 @@
 	width:400px;
 	height:50px;
 	text-align:center;
+	border-top: 1px solid #ddd;
 }
 
 #inbox_footer a {
