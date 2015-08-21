@@ -98,7 +98,7 @@ function identifyUser(e){
 }
 
 function init_inbox(){
-	add_css('http://js.knowtify.io/inbox.css');
+	add_css('http://js.knowtify.io/inbox.css?v=2');
 	_tooltip.id = 'inbox_tooltip';
 	_tooltip.className = 'hide';
 	_tooltip.style['display'] = 'none';
@@ -321,7 +321,7 @@ function position_messages(){
 	_messages.style['height'] = (screen_height-(t+h+135))+'px';
 	_content.style['height'] = (screen_height-(t+h+135))+'px';
 
-	if((l+520) > screen_width){		
+	if((l+520) > screen_width){
 		var arrow_left = 460-((screen_width-l)-(w/2)+20);
 		if(arrow_left > 410){
 			arrow_left = 410;
@@ -330,11 +330,19 @@ function position_messages(){
 		_arrow.style['left'] = arrow_left+'px';
 	}else{
 		var arrow_left = ((w/2)-20);
-		if(arrow_left<0){
-			arrow_left = 0;
+		if(w>50){
+			_tooltip.style['left'] = l+'px';
+			_arrow.style['left'] = arrow_left+'px';
+		}else{
+			if(l>30){
+				_tooltip.style['left'] = (l-30)+'px';
+				_arrow.style['left'] = (arrow_left+30)+'px';
+			}else{
+				if(arrow_left<0){ arrow_left=0; }
+				_tooltip.style['left'] = l+'px';
+				_arrow.style['left'] = arrow_left+'px';
+			}
 		}
-		_tooltip.style['left'] = l+'px';
-		_arrow.style['left'] = arrow_left+'px';
 	}
 }
 
