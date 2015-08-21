@@ -133,29 +133,27 @@
             inboxCommand: function (data) {
                 console.log("inbox");
 
-                if (data[2].email) {
-
-                    window.knowtifyInbox = {
-                        public_token: window._knowtify.public_token,
-                        email: data[2].email,
-                        alert_button_id: data[1]
-                    };
-                    console.log(data[2].id);
-                    if(data[2].id){
-                        //backwards compatibility
-                        window.knowtifyInbox.contact_id = data[2].id+"";
-                    }
-                    //Load the library
-
-                    KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
-                     //   console.log("Loaded inbox");
-                    });
-
+                window.knowtifyInbox = {
+                    public_token: window._knowtify.public_token,
+                    email: data[2].email,
+                    alert_button_id: data[1]
+                };
+                console.log(data[2].id);
+                if(data[2].id){
+                    //backwards compatibility
+                    window.knowtifyInbox.contact_id = data[2].id+"";
                 }
-                else {
-                    console.log("Error: No email defined for inbox");
-                }
+                //Load the library
 
+                KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
+                 //   console.log("Loaded inbox");
+                });
+
+                /*
+                KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
+                 //   console.log("Loaded inbox");
+                });
+                */
             },
             loadJSCommand: function (data) {
                 console.log("loading JS");

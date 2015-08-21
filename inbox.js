@@ -11,6 +11,7 @@ if(window.knowtifyInbox && supports_local_storage()){
 	_content = document.createElement('div'),
 	_tooltip = document.createElement('div'),
 	_alert_button = document.getElementById(k.alert_button_id),
+	_arrow = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
 	_alert_button_count,
 	_notification_count,
 	screen_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -126,10 +127,27 @@ function init_inbox(){
 	footer.id = 'inbox_footer';
 	footer.innerHTML = "<a target='_blank' href='http://knowtify.io/inbox'>Powered by Knowtify</a>";
 
+	//<svg width="100" height="100">
+  	//<circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+	//</svg>
+	//<polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" />
+	//<svg width="200" height="250" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	//<path d="M20,230 Q40,205 50,230 T90,230" fill="none" stroke="blue" stroke-width="5"/>
+
+	_arrow.id = "inbox_arrow";
+	var triangle = document.createElementNS("http://www.w3.org/2000/svg",'path');
+	triangle.setAttribute("d","M 20 0 L 40 20 L 0 20 Z");
+	_arrow.appendChild(triangle);
+
+	var message_container = document.createElement("div");
+	message_container.id = "inbox_message_container";
+	message_container.appendChild(_messages);
+	message_container.appendChild(_content);
+
 	_tooltip.appendChild(header);
-	_tooltip.appendChild(_messages);
-	_tooltip.appendChild(_content);
+	_tooltip.appendChild(message_container);
 	_tooltip.appendChild(footer);
+	_tooltip.appendChild(_arrow);
 
 	_body.appendChild(_tooltip);
 	_alert_button_count = document.createElement('span');
@@ -298,15 +316,25 @@ function position_messages(){
 	w = _alert_button.offsetWidth,
 	h = _alert_button.offsetHeight;
 
-	_tooltip.style['top'] = t+h+10+'px';
+	_tooltip.style['top'] = t+h+20+'px';
 	_tooltip.style['height'] = (screen_height-(t+h+35))+'px';
 	_messages.style['height'] = (screen_height-(t+h+135))+'px';
 	_content.style['height'] = (screen_height-(t+h+135))+'px';
 
-	if((l+520) > screen_width){
-		_tooltip.style['left'] = (screen_width - 520)+'px';
+	if((l+520) > screen_width){		
+		var arrow_left = 460-((screen_width-l)-(w/2)+20);
+		if(arrow_left > 410){
+			arrow_left = 410;
+		}
+		_tooltip.style['left'] = (screen_width - 460)+'px';
+		_arrow.style['left'] = arrow_left+'px';
 	}else{
+		var arrow_left = ((w/2)-20);
+		if(arrow_left<0){
+			arrow_left = 0;
+		}
 		_tooltip.style['left'] = l+'px';
+		_arrow.style['left'] = arrow_left+'px';
 	}
 }
 

@@ -32,7 +32,6 @@
 	font-family:helvetica,arial;
 	width:450px;
 	background:#fff;
-	overflow:hidden;
 	-webkit-box-shadow:0 0 15px rgba(0,0,0,.25);
 	-moz-box-shadow:0 0 15px rgba(0,0,0,.25);
 	box-shadow:0 0 15px rgba(0,0,0,.25);
@@ -104,6 +103,30 @@ body #inbox_messages li:hover {
 	background: #F2F2F2;
 	opacity: .9;
 	border: 1px solid #ddd;
+}
+
+#inbox_message_container {
+	position:absolute;
+	width:450px;
+	top:0;
+	bottom:0;
+	left:0;
+	overflow:hidden;
+}
+
+#inbox_arrow {
+	position:absolute;
+	top:-18px;
+	left:50%;
+	z-index:0;
+	width:40px;
+	height:20px;
+	-webkit-filter: drop-shadow(0 0 5px rgba(0,0,0,.25));
+	filter: drop-shadow(0 0 5px rgba(0,0,0,.25));
+}
+
+#inbox_arrow path {
+	fill:#fff;
 }
 
 #inbox_messages,
