@@ -55,7 +55,7 @@ function process(){
 	            add_messages();
 	            break;
 	        default:
-	            console.log(d[0], "Unknown Command");
+	            //console.log(d[0], "Unknown Command");
 	    }
 	}
 }
@@ -72,7 +72,7 @@ function setup_websockets(){
 	});
 
 	websocket.bind('new_message', function(data) {
-	  	console.log(data.message); // would output 'this is a message'
+	  	//console.log(data.message); // would output 'this is a message'
 	});
 	websocket.bind('chat', addChat);
 }
@@ -311,8 +311,9 @@ function add_messages(){
 }
 
 function position_messages(){
-	var t = _alert_button.offsetTop,
-	l = _alert_button.offsetLeft,
+	var offset = cumulativeOffset(_alert_button);
+	var t = offset.top,
+	l = offset.left,
 	w = _alert_button.offsetWidth,
 	h = _alert_button.offsetHeight;
 
@@ -349,6 +350,7 @@ function position_messages(){
 function show_hide_messages(e){
 	//_tooltip.style['display'] = 'block';
 	e.preventDefault();
+	position_messages();
 	if(messages_shown){
 		_tooltip.className = 'hide';
 		messages_shown = false;
@@ -526,10 +528,7 @@ function add_contact(){
 		//xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
 		xhr.onload = function() {
-		    if (xhr.status === 200 && xhr.responseText !== newName) {
-		        alert('Something went wrong.  Name is now ' + xhr.responseText);
-		    }
-		    else if (xhr.status !== 200) {
+		    if (xhr.status !== 200) {
 		        alert('Request failed.  Returned status of ' + xhr.status);
 		    }
 		};
@@ -545,6 +544,20 @@ function extend(){
 				arguments[0][key] = arguments[i][key];
 	return arguments[0];
 }
+
+function cumulativeOffset(element) {
+    var top = 0, left = 0;
+    do {
+        top += element.offsetTop  || 0;
+        left += element.offsetLeft || 0;
+        element = element.offsetParent;
+    } while(element);
+
+    return {
+        top: top,
+        left: left
+    };
+};
 
 function timeSince(timestamp) {
 	if(timestamp){

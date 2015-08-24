@@ -99,46 +99,46 @@
                 }
             },
             addContactCommand: function (data) {
-                console.log("add_contact");
+                //console.log("add_contact");
                 if(data[1].email) {
                     if (!data[1].name) {
                         data[1].name = "";
                     }
                     KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
                 }else{
-                    console.log("Error: No email defined for add_contact", data[1]);
+                    //console.log("Error: No email defined for add_contact", data[1]);
                 }
 
             },
             updateContactCommand: function (data) {
-                console.log("update_contact");
+                //console.log("update_contact");
 
                 if(data[1].id) {
                     KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
                 }else{
-                    console.log("Error: No contact id defined for update_contact");
+                    //console.log("Error: No contact id defined for update_contact");
                 }
             },
             eventCommand: function (data) {
-                console.log("event");
+                //console.log("event");
                 if(data[2].id) {
                     data[2].event = data[1];
                     KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[2]);
                 }
                 else {
-                    console.log("Error: No id defined for event", data[1]);
+                    //console.log("Error: No id defined for event", data[1]);
                 }
 
             },
             inboxCommand: function (data) {
-                console.log("inbox");
+                //console.log("inbox");
 
                 window.knowtifyInbox = {
                     public_token: window._knowtify.public_token,
                     email: data[2].email,
                     alert_button_id: data[1]
                 };
-                console.log(data[2].id);
+                //console.log(data[2].id);
                 if(data[2].id){
                     //backwards compatibility
                     window.knowtifyInbox.contact_id = data[2].id+"";
@@ -156,7 +156,7 @@
                 */
             },
             loadJSCommand: function (data) {
-                console.log("loading JS");
+                //console.log("loading JS");
 
                 if(data[1].url) {
                     KNOWTIFY.loadScript(data[1].url, function () {
@@ -164,12 +164,12 @@
                     });
                 }
                 else {
-                    console.log("Error: No url for JS");
+                    //console.log("Error: No url for JS");
                 }
 
             },
             loadCSSCommand: function (data) {
-                console.log("loading CSS");
+                //console.log("loading CSS");
 
                 if(data[1].url) {
                     var head = document.getElementsByTagName('head')[0];
@@ -180,7 +180,7 @@
                     head.appendChild(s);
                 }
                 else {
-                    console.log("Error: No url for CSS");
+                    //console.log("Error: No url for CSS");
                 }
 
             },
@@ -233,7 +233,7 @@
                     });
                     */
                 } else {
-                    console.log("Error: No public token set on _knowtify");
+                    //console.log("Error: No public token set on _knowtify");
                 }
 
 
@@ -252,7 +252,7 @@
 
                     //d = jQuery.extend({}, _knowtify.shift());
                     d = KNOWTIFY.extend({}, _knowtify.shift());
-                    console.log(d);
+                    //console.log(d);
 
                     switch (d[0]) {
                         case "add_contact":
@@ -274,7 +274,7 @@
                             KNOWTIFY.eventCommand(d);
                             break;
                         default:
-                            console.log(d[0], "Unknown Command");
+                            //console.log(d[0], "Unknown Command");
                     }
                 }
 
