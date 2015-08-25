@@ -23,10 +23,10 @@
 
  _knowtifyLoader("//js.knowtify.io/knowtify.js");
 
- _knowtify.push(['add_contact', {"email": "joe@a.ol.com", contact_id: 123, name: "Joe", followers: 12}]);
- _knowtify.push(['update_contact', {"contact_id": 123, "email": "joe@aol.com", name: "Joe", followers: 12}]);
- _knowtify.push(['event', 'low_credits',{ "contact_id": 123, credits: 10}]);
- _knowtify.push(['inbox', 'inbox-btn', {"email": "joe@a.ol.com", contact_id: 123}]);
+ _knowtify.push(['add_contact', {email: "joe@test.com", id: "123", name: "Joe", followers: 12}]);
+ _knowtify.push(['update_contact', {id: "123", email: "joe@test.com", name: "Joe", followers: 12}]);
+ _knowtify.push(['event', 'low_credits',{ id: "123", email: "joe@test.com", credits: 10}]);
+ _knowtify.push(['inbox', 'inbox-btn', {email: "joe@test.com", id: "123"}]);
 
  */
 (function (window, document, undefined) {
@@ -99,36 +99,14 @@
                 }
             },
             addContactCommand: function (data) {
-                //console.log("add_contact");
-                if(data[1].email) {
-                    if (!data[1].name) {
-                        data[1].name = "";
-                    }
-                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
-                }else{
-                    //console.log("Error: No email defined for add_contact", data[1]);
-                }
-
+                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
             },
             updateContactCommand: function (data) {
-                //console.log("update_contact");
-
-                if(data[1].id) {
-                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
-                }else{
-                    //console.log("Error: No contact id defined for update_contact");
-                }
+                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
             },
             eventCommand: function (data) {
-                //console.log("event");
-                if(data[2].id) {
-                    data[2].event = data[1];
-                    KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[2]);
-                }
-                else {
-                    //console.log("Error: No id defined for event", data[1]);
-                }
-
+                data[2].event = data[1];
+                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[2]);
             },
             inboxCommand: function (data) {
                 //console.log("inbox");
@@ -145,9 +123,7 @@
                 }
                 //Load the library
 
-                KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
-                 //   console.log("Loaded inbox");
-                });
+                KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {});
 
                 /*
                 KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
@@ -203,8 +179,10 @@
                     xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
                     xhr.onload = function() {
                         if (xhr.status !== 200) {
-                            alert('Request failed.  Returned status of ' + xhr.status);
+                            var json = JSON.parse(xhr.responseText);
+                            console.log(json.message);
                         }else{
+                            //console.log('success');
                             if (success_callback){
                                 success_callback(xhr.responseText);
                             }
