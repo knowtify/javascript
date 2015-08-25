@@ -179,8 +179,12 @@
                     xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
                     xhr.onload = function() {
                         if (xhr.status !== 200) {
-                            var json = JSON.parse(xhr.responseText);
-                            console.log(json.message);
+                            if(_knowtify.errorHandler){
+                                _knowtify.errorHandler(xhr);
+                            }else{
+                                var json = JSON.parse(xhr.responseText);
+                                console.log(json.message);
+                            }
                         }else{
                             //console.log('success');
                             if (success_callback){
