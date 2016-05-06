@@ -6,27 +6,29 @@
 <script>
     var _knowtify = _knowtify || [];
     var _knowtifyInbox = _knowtifyInbox || [];
-    _knowtify.public_token = "xxx";
+    _knowtify.public_token = "5745ea1f738e5a17ca610c8905902448";
     var timestamp = new Date();
 
     (function(d,s,t,u){var j = d.createElement(s);var p = d.getElementsByTagName(s)[0];
         j.type = t;j.async = true;j.src = u;p.parentNode.insertBefore(j, p);})(document,'script','text/javascript', 'knowtify.js');
 
-    //_knowtify.push(['add_contact', {email: "joe3@test.com", id: "123", name: "Joe", followers: 12}]);
+    //_knowtify.push(['add_contact', {email: "joe4@test.com", id: "123", name: "Joe", followers: 12}]);
     //_knowtify.push(['update_contact', {id: "123", "email": "joe3@test.com", name: "Joe", followers: 100}]);
-    //_knowtify.push(['event', 'jellybean', {id: "123", credits: 25, email: "joe@test.com"}]);
-    //_knowtify.push(['load_inbox', 'inbox-btn', { id: 1, email: "dane123@knowtify.io" }]);
+    //_knowtify.push(['event', 'jellybean', {id: 5555, credits: 25, email: "dane+newtest@knowtify.io"}]);
+    _knowtify.push(['load_inbox', 'inbox-btn', { email: "dane@knowtify.io" }]);
     //_knowtify.push(['load_js', {url: "js/test.js"}]);
     //_knowtify.push(['load_css', {url: "css/test.css"}]);
 
+    /*
     _knowtifyInbox.push(['message', {
-        id: "welcome",
-        heading: "Welcome",
+        id: "welcome55",
+        heading: "Welcome 55",
         image: "https://s3.amazonaws.com/knowtify_web/_img/inbox_profile.png",
         description: "Welcome text...",
-        content: "<p>More welcome text...</p>",
+        content: "<p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>5</p><p>1000</p>",
         created_at: timestamp
     }]);
+    */
 
     setTimeout(function(){
         var btn = document.getElementById('inbox-btn');

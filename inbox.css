@@ -2,7 +2,7 @@
 	display:none;
 }
 #inbox_message_count.show {
-	display:inline-block;
+	display:inline-block !important;
 	background:#fdd630;
 	color:#fff;
 	position:absolute;

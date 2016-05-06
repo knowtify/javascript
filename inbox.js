@@ -98,7 +98,7 @@ function identifyUser(e){
 }
 
 function init_inbox(){
-	add_css('http://js.knowtify.io/inbox.css?v=2');
+	add_css('https://s3.amazonaws.com/js.knowtify.io/inbox.css?v=2');
 	_tooltip.id = 'inbox_tooltip';
 	_tooltip.className = 'hide';
 	_tooltip.style['display'] = 'none';
@@ -152,6 +152,7 @@ function init_inbox(){
 	_body.appendChild(_tooltip);
 	_alert_button_count = document.createElement('span');
 	_alert_button_count.id = "inbox_message_count";
+	_alert_button_count.style['display'] = 'none';
 	_alert_button.appendChild(_alert_button_count);
 	_alert_button.style.position = "relative";
 
@@ -177,7 +178,7 @@ function get_messages(){
   		localStorage.setItem('inbox_messages', '{}');
   	}
 
-  	var params = "public_token="+k.public_token+"&email="+k.email
+  	var params = "public_token="+k.public_token+"&email="+k.email.replace(/\+/g, '%2B')
   	if(k.contact_id){
   		params += "&contact_id="+k.contact_id
   	}
@@ -187,9 +188,27 @@ function get_messages(){
 		if (r.readyState != 4 || r.status != 200) return;
 		//console.log(r.requestHeader);
 		save_messages(r.responseText);
+		mark_messages_seen(r.responseText);
 		add_messages();
 	};
 	r.send("");
+}
+
+function mark_messages_seen(data){
+	//duplicate code needs to be refactored
+	var msg = JSON.parse(data).messages || [];
+	if(msg.length > 0){
+		var u,c;
+		var i = [];
+		for(var ii=0;ii<msg.length;ii++){
+			u = msg[ii].u;
+			c = msg[ii].c;
+			i.push(msg[ii].i);
+		}
+		i = i.join(',');
+		var img = new Image();
+	    img.src = 'https://knowtify-analytics.herokuapp.com/inbox_seen?u='+u+'&c='+c+'&i='+i;
+	}
 }
 
 function save_messages(data){
@@ -320,7 +339,7 @@ function position_messages(){
 	_tooltip.style['top'] = t+h+20+'px';
 	_tooltip.style['height'] = (screen_height-(t+h+35))+'px';
 	_messages.style['height'] = (screen_height-(t+h+135))+'px';
-	_content.style['height'] = (screen_height-(t+h+135))+'px';
+	_content.style['height'] = (screen_height-(t+h+165))+'px';
 
 	if((l+520) > screen_width){
 		var arrow_left = 460-((screen_width-l)-(w/2)+20);
@@ -364,6 +383,12 @@ function show_hide_messages(e){
 function mark_message_read(id){
 	messages[id].status = 'read';
 	save_messages('{"messages":[]}');
+
+	var msg = messages[id];
+	if(msg.u && msg.i && msg.c){
+		var img = new Image();
+		img.src = 'https://knowtify-analytics.herokuapp.com/inbox_clicked?u='+msg.u+'&c='+msg.c+'&i='+msg.i;
+	}
 }
 
 function mark_all_messages_read(e){
@@ -524,7 +549,7 @@ function add_contact(){
 	    xhr = new XMLHttpRequest();
 
 		xhr.open('POST',
-		encodeURI('http://www.knowtify.io/api/v1/contacts/js_add'));
+		encodeURI('https://www.knowtify.io/api/v1/contacts/js_add'));
 		//xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr.setRequestHeader("Content-Type","application/json; charset=UTF-8");
 		xhr.onload = function() {

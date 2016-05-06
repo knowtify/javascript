@@ -99,14 +99,14 @@
                 }
             },
             addContactCommand: function (data) {
-                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_add", data[1]);
+                KNOWTIFY.apiCall("https://www.knowtify.io/api/v1/contacts/js_add", data[1]);
             },
             updateContactCommand: function (data) {
-                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[1]);
+                KNOWTIFY.apiCall("https://www.knowtify.io/api/v1/contacts/js_update", data[1]);
             },
             eventCommand: function (data) {
                 data[2].event = data[1];
-                KNOWTIFY.apiCall("http://www.knowtify.io/api/v1/contacts/js_update", data[2]);
+                KNOWTIFY.apiCall("https://www.knowtify.io/api/v1/contacts/js_update", data[2]);
             },
             inboxCommand: function (data) {
                 //console.log("inbox");
@@ -123,7 +123,8 @@
                 }
                 //Load the library
 
-                KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {});
+                //KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {});
+                KNOWTIFY.loadScript("https://s3.amazonaws.com/js.knowtify.io/inbox.js", function () {});
 
                 /*
                 KNOWTIFY.loadScript("http://js.knowtify.io/inbox.js", function () {
